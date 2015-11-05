@@ -7,9 +7,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -48,35 +50,64 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         // ****** TEST CODE *****
         listView = (ListView) findViewById(R.id.contacts_list);
 
-        ArrayList<Contact> data = new ArrayList<Contact>();
-        Contact c = new Contact("A", "Erasmus", "911");
-        data.add(c);
-        c = new Contact("A", "Batman", "911 11 111");
-        data.add(c);
-        c = new Contact("A", "Real Madrid", "767678787");
-        data.add(c);
-        c = new Contact("A", "Mama", "43535535");
-        data.add(c);
-        c = new Contact("A", "Julio", "4524524");
-        data.add(c);
-        c = new Contact("A", "Darlis", "4524524");
-        data.add(c);
-        c = new Contact("A", "Osito", "4524524");
-        data.add(c);
-        c = new Contact("A", "Bob Esponja", "4524524");
-        data.add(c);
+        Log.i("DATABASE", "Starting database operations...");
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        db.deleteAllContacts();
+
+        if (db.getContactsCount() == 0) {
+
+            ArrayList<Contact> data = new ArrayList<Contact>();
+            Contact c = new Contact("Erasmus", "911", "A");
+            data.add(c);
+            c = new Contact("Batman", "911 11 111", "A");
+            data.add(c);
+            c = new Contact("Real Madrid", "767678787", "A");
+            data.add(c);
+            c = new Contact("Mama", "43535535", "A");
+            data.add(c);
+            c = new Contact("Julio", "4524524", "A");
+            data.add(c);
+            c = new Contact("Darlis", "4524524", "A");
+            data.add(c);
+            c = new Contact("Osito", "4524524", "A");
+            data.add(c);
+            c = new Contact("Bob Esponja", "4524524", "A");
+            data.add(c);
+
+            c = new Contact("Nirvana", "4524524", "A");
+            data.add(c);
+
+            for (Contact item: data) {
+                Log.i("DATABASE", "Inserting item...");
+                db.addContact(item);
+            }
+        }
+
+        Log.i("DATABASE", "Getting all contacts...");
+        ArrayList<Contact> contacts = db.getAllContacts();
 
         // Setting up ContactsAdapter
         Resources res = getResources();
-        adapter = new ContactsAdapter(this, data, res);
+        adapter = new ContactsAdapter(this, contacts, res);
 
         listView.setAdapter(adapter);
         // ***** END TEST CODE *****
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("TEST", "*******************");
+
+                Contact item = (Contact)listView.getAdapter().getItem(position);
+                Log.i("ID", "ID: "+ item.getId());
+
+                Snackbar.make(view, "ID: "+ item.getId(), Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            }
+        });
 
     }
 

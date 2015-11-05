@@ -1,16 +1,38 @@
 package jotace.org.speedtouch;
 
 public class Contact {
-    private String image;
+
+    private int id;
 
     private String name;
 
     private String number;
 
-    public Contact(String img, String contactName, String contactNumber) {
-        image = img;
-        name = contactName;
-        number = contactNumber;
+    private String image;
+
+    public Contact() {
+
+    }
+
+    public Contact(String contactName, String contactNumber, String contactImg) {
+        this.name = contactName;
+        this.number = contactNumber;
+        this.image = contactImg;
+    }
+
+    public Contact(int contactId, String contactName, String contactNumber, String contactImg) {
+        this.id = contactId;
+        this.name = contactName;
+        this.number = contactNumber;
+        this.image = contactImg;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getImage() {

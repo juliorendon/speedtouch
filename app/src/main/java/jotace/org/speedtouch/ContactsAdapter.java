@@ -2,6 +2,7 @@ package jotace.org.speedtouch;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ public class ContactsAdapter extends BaseAdapter implements View.OnClickListener
 
     private Activity activity;
     private ArrayList<Contact> data;
-    private static LayoutInflater inflater = null;
+    private static LayoutInflater inflater;
     public Resources res;
 
     public ContactsAdapter(Activity a, ArrayList<Contact> d, Resources resLocal) {
@@ -54,7 +55,6 @@ public class ContactsAdapter extends BaseAdapter implements View.OnClickListener
         Contact tempContact = null;
 
         if(convertView == null) {
-
             // Inflating Contact Item
             vi = inflater.inflate(R.layout.contact_item, null);
 
@@ -71,11 +71,12 @@ public class ContactsAdapter extends BaseAdapter implements View.OnClickListener
             holder = (ViewHolder)vi.getTag();
         }
 
+
         if(null != data && data.size() > 0) {
 
             tempContact = (Contact) data.get(position);
 
-            /************  Set Model values in Holder elements ***********/
+            // Setting values
             holder.getName().setText(tempContact.getName());
             holder.getNumber().setText(tempContact.getNumber());
             /*holder.getImage().setImageResource(
@@ -85,16 +86,20 @@ public class ContactsAdapter extends BaseAdapter implements View.OnClickListener
             */
             /******** Set Item Click Listner for LayoutInflater for each row *******/
 
-            //vi.setOnClickListener(new OnItemClickListener( position ));
+            //vi.setOnClickListener(new AdapterView.OnItemClickListener(position));
+
         }
+
         return vi;
 
     }
 
     @Override
     public void onClick(View v) {
-
+        Log.v("CustomAdapter", "=====Row button clicked=====");
     }
+
+
 
 
     public class ViewHolder{
