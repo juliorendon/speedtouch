@@ -1,5 +1,6 @@
 package jotace.org.speedtouch;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -19,8 +20,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ContactsAdapter adapter;
-    ListView listView;
+    private ContactsAdapter adapter;
+    private  ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+               */
+                startActivity(new Intent(MainActivity.this, AddActivity.class));
+
             }
         });
 
@@ -69,16 +74,16 @@ public class MainActivity extends AppCompatActivity {
             data.add(c);
             c = new Contact("Mama", "43535535", "A");
             data.add(c);
-            c = new Contact("Julio", "4524524", "A");
+            c = new Contact("Julio Cesar Rendon Ramirez", "4524524", "A");
             data.add(c);
-            c = new Contact("Darlis", "4524524", "A");
+            c = new Contact("Darlis Bracho Tudares", "4524524", "A");
             data.add(c);
             c = new Contact("Osito", "4524524", "A");
             data.add(c);
             c = new Contact("Bob Esponja", "4524524", "A");
             data.add(c);
 
-            c = new Contact("Nirvana", "4524524", "A");
+            c = new Contact("Nirvana y sus Amigos", "4524524", "A");
             data.add(c);
 
             for (Contact item: data) {
