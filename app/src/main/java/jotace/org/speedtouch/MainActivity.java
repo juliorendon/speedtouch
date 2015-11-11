@@ -1,13 +1,15 @@
 package jotace.org.speedtouch;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ContactsAdapter adapter;
     private  ListView listView;
+    static final int ADD_NEW_CONTACT_RC = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +51,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-               */
                 startActivity(new Intent(MainActivity.this, AddActivity.class));
-
             }
         });
 
@@ -63,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
         Log.i("DATABASE", "Starting database operations...");
         DatabaseHandler db = new DatabaseHandler(this);
 
+/*
         db.deleteAllContacts();
 
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.recio);
         byte[] imageByteArray = ImageHelper.bitmapToByteArray(imageBitmap);
+
 
         if (db.getContactsCount() == 0) {
 
@@ -96,26 +96,36 @@ public class MainActivity extends AppCompatActivity {
                 db.addContact(item);
             }
         }
+        */
 
         Log.i("DATABASE", "Getting all contacts...");
         ArrayList<Contact> contacts = db.getAllContacts();
 
         // Setting up ContactsAdapter
         Resources res = getResources();
-        adapter = new ContactsAdapter(this, contacts, res);
+        if (!contacts.isEmpty()) {
+            adapter = new ContactsAdapter(this, contacts, res);
+        }
 
+
+        listView.setEmptyView(findViewById(R.id.empty_list));
         listView.setAdapter(adapter);
         // ***** END TEST CODE *****
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("TEST", "*******************");
+
+                if (Build.VERSION.SDK_INT >= 23 && (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)) {
+                    return;
+                }
 
                 Contact item = (Contact)listView.getAdapter().getItem(position);
-                Log.i("ID", "ID: "+ item.getId());
 
-                Snackbar.make(view, "ID: "+ item.getId(), Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + item.getNumber()));
+                startActivity(callIntent);
+                
             }
         });
 

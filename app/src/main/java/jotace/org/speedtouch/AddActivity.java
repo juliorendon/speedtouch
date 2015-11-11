@@ -2,6 +2,7 @@ package jotace.org.speedtouch;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,11 +59,30 @@ public class AddActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(nameEditText.getText().toString().trim().isEmpty() || numberEditText.getText().toString().trim().isEmpty()) {
+
+                String contactName = nameEditText.getText().toString().trim();
+                String contactNumber = numberEditText.getText().toString().trim();
+
+                if(contactName.isEmpty() || contactNumber.isEmpty()) {
                     Snackbar.make(v, R.string.save_contact_validation, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                }
+                } else {
+                    Contact contact = new Contact();
+                    contact.setName(contactName);
+                    contact.setNumber(contactNumber);
 
+                    contactImage.buildDrawingCache();
+                    Bitmap imageBitmap = contactImage.getDrawingCache();
+                    contact.setImage(ImageHelper.bitmapToByteArray(imageBitmap));
+
+                    DatabaseHandler db = new DatabaseHandler(AddActivity.this);
+                    db.addContact(contact);
+
+                    Snackbar.make(v, R.string.save_contact_successfully, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                    startActivity(new Intent(AddActivity.this, MainActivity.class));
+                }
             }
         });
 

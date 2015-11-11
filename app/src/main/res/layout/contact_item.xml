@@ -20,8 +20,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:padding="10dp"
-        android:textSize="20dp"
-        android:text="Julio Cesar Rendon Ramirez" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/number"
@@ -32,7 +31,6 @@
         android:layout_alignLeft="@+id/name"
         android:layout_below="@+id/name"
         android:textAlignment="center"
-        android:text="665262664"
         android:textSize="20dp" />
 
 
