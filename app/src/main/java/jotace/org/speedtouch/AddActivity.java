@@ -55,6 +55,7 @@ public class AddActivity extends AppCompatActivity {
 
         //Geting Save Button
         Button saveBtn = (Button) findViewById(R.id.btn_save);
+        saveBtn.setTypeface(font);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override

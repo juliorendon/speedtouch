@@ -56,10 +56,13 @@
 
     <Button
         android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_save"
+        android:textSize="20dp"
         android:layout_marginTop="10dp"
+        android:background="@color/darkorange"
+        android:textColor="@android:color/white"
         android:layout_gravity="center"/>
 
 </LinearLayout>
