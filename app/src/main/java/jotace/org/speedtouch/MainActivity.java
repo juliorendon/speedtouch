@@ -2,6 +2,8 @@ package jotace.org.speedtouch;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -63,27 +65,30 @@ public class MainActivity extends AppCompatActivity {
 
         db.deleteAllContacts();
 
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.recio);
+        byte[] imageByteArray = ImageHelper.bitmapToByteArray(imageBitmap);
+
         if (db.getContactsCount() == 0) {
 
             ArrayList<Contact> data = new ArrayList<Contact>();
-            Contact c = new Contact("Erasmus", "911", "A");
+            Contact c = new Contact("Erasmus", "911", imageByteArray);
             data.add(c);
-            c = new Contact("Batman", "911 11 111", "A");
+            c = new Contact("Batman", "911 11 111", imageByteArray);
             data.add(c);
-            c = new Contact("Real Madrid", "767678787", "A");
+            c = new Contact("Real Madrid", "767678787", imageByteArray);
             data.add(c);
-            c = new Contact("Mama", "43535535", "A");
+            c = new Contact("Mama", "43535535", imageByteArray);
             data.add(c);
-            c = new Contact("Julio Cesar Rendon Ramirez", "4524524", "A");
+            c = new Contact("Julio Cesar Rendon Ramirez", "4524524", imageByteArray);
             data.add(c);
-            c = new Contact("Darlis Bracho Tudares", "4524524", "A");
+            c = new Contact("Darlis Bracho Tudares", "4524524", imageByteArray);
             data.add(c);
-            c = new Contact("Osito", "4524524", "A");
+            c = new Contact("Osito", "4524524", imageByteArray);
             data.add(c);
-            c = new Contact("Bob Esponja", "4524524", "A");
+            c = new Contact("Bob Esponja", "4524524", imageByteArray);
             data.add(c);
 
-            c = new Contact("Nirvana y sus Amigos", "4524524", "A");
+            c = new Contact("Nirvana y sus Amigos", "4524524", imageByteArray);
             data.add(c);
 
             for (Contact item: data) {

@@ -74,7 +74,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         Contact contact = new Contact(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
-                cursor.getString(2), cursor.getString(3));
+                cursor.getString(2), cursor.getBlob(3));
 
         db.close();
         cursor.close();
@@ -97,7 +97,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 contact.setId(Integer.parseInt(cursor.getString(0)));
                 contact.setName(cursor.getString(1));
                 contact.setNumber(cursor.getString(2));
-                contact.setImage(cursor.getString(3));
+                contact.setImage(cursor.getBlob(3));
 
                 contactList.add(contact);
             } while (cursor.moveToNext());

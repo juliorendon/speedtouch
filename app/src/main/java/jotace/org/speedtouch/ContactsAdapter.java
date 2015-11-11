@@ -79,15 +79,7 @@ public class ContactsAdapter extends BaseAdapter implements View.OnClickListener
             // Setting values
             holder.getName().setText(tempContact.getName());
             holder.getNumber().setText(tempContact.getNumber());
-            /*holder.getImage().setImageResource(
-                    res.getIdentifier(
-                            "jotace.org.speedtouch:drawable/" + tempContact.getImage()
-                            ,null,null));
-            */
-            /******** Set Item Click Listner for LayoutInflater for each row *******/
-
-            //vi.setOnClickListener(new AdapterView.OnItemClickListener(position));
-
+            holder.getImage().setImageBitmap(ImageHelper.byteArrayToBitmap(tempContact.getImage()));
         }
 
         return vi;
