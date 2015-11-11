@@ -8,19 +8,19 @@ public class Contact {
 
     private String number;
 
-    private String image;
+    private byte[] image;
 
     public Contact() {
 
     }
 
-    public Contact(String contactName, String contactNumber, String contactImg) {
+    public Contact(String contactName, String contactNumber, byte[] contactImg) {
         this.name = contactName;
         this.number = contactNumber;
         this.image = contactImg;
     }
 
-    public Contact(int contactId, String contactName, String contactNumber, String contactImg) {
+    public Contact(int contactId, String contactName, String contactNumber, byte[] contactImg) {
         this.id = contactId;
         this.name = contactName;
         this.number = contactNumber;
@@ -35,11 +35,11 @@ public class Contact {
         this.id = id;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
