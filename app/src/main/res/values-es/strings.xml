@@ -6,6 +6,7 @@
     <string name="hint_name">Nombre Contacto</string>
     <string name="hint_phone_number">Teléfono Contacto</string>
     <string name="btn_save">Guardar</string>
+    <string name="btn_delete">Eliminar</string>
     <string name="save_contact_validation">Introduzca Nombre y Número de Teléfono</string>
     <string name="save_contact_successfully">Nuevo contacto guardado :)</string>
     <string name="update_contact_successfully">Contacto guardado :)</string>

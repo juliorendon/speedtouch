@@ -1,12 +1,14 @@
 package jotace.org.speedtouch;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -19,10 +21,12 @@ import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
 
+
 public class EditActivity extends AppCompatActivity {
 
     private ImageView contactImage;
     private static final String CONTACT_DATA = "CONTACT";
+    private DatabaseHandler db = new DatabaseHandler(EditActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,7 @@ public class EditActivity extends AppCompatActivity {
                 String contactName = nameEditText.getText().toString().trim();
                 String contactNumber = numberEditText.getText().toString().trim();
 
-                if(contactName.isEmpty() || contactNumber.isEmpty()) {
+                if (contactName.isEmpty() || contactNumber.isEmpty()) {
                     Snackbar.make(v, R.string.save_contact_validation, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 } else {
@@ -93,7 +97,6 @@ public class EditActivity extends AppCompatActivity {
                     Bitmap imageBitmap = contactImage.getDrawingCache();
                     contact.setImage(ImageHelper.bitmapToByteArray(imageBitmap));
 
-                    DatabaseHandler db = new DatabaseHandler(EditActivity.this);
                     db.updateContact(contact);
 
                     Snackbar.make(v, R.string.update_contact_successfully, Snackbar.LENGTH_SHORT)
@@ -106,6 +109,43 @@ public class EditActivity extends AppCompatActivity {
                                 }
                             }).show();
                 }
+            }
+        });
+
+        //Getting Delete Button
+        Button deleteBtn = (Button) findViewById(R.id.btn_delete);
+        deleteBtn.setTypeface(font);
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
+                // Add the buttons
+                builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        db.deleteContact(contact);
+
+                        Snackbar.make(v, R.string.delete_contact_successfully, Snackbar.LENGTH_SHORT)
+                                .setAction("Action", null)
+                                .setCallback(new Snackbar.Callback() {
+                                    @Override
+                                    public void onDismissed(Snackbar snackbar, int event) {
+                                        super.onDismissed(snackbar, event);
+                                        startActivity(new Intent(EditActivity.this, MainActivity.class));
+                                    }
+                                }).show();
+                    }
+                })
+                .setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                })
+                        .setTitle(R.string.delete_contact)
+                        .setMessage(R.string.delete_contact_confirmation)
+                        .create().show();
             }
         });
 
