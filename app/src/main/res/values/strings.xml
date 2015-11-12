@@ -7,8 +7,11 @@
     <string name="hint_phone_number">Contact Phone Number</string>
     <string name="btn_save">Save</string>
     <string name="save_contact_validation">Please enter a Name and a Phone Number</string>
-    <string name="save_contact_successfully">The new contact has been created successfully</string>
+    <string name="save_contact_successfully">New contact saved :)</string>
     <string name="empty_list_text">You have no contacts :(</string>
+    <string name="enable_text_search">Enable Search</string>
+    <string name="disable_text_search">Disable Search</string>
+    <string name="edit_contact">Edit Contact</string>
 
 
 </resources>

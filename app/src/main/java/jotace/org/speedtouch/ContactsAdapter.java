@@ -7,22 +7,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 
-public class ContactsAdapter extends BaseAdapter implements View.OnClickListener {
+public class ContactsAdapter extends BaseAdapter implements View.OnClickListener, Filterable {
 
     private Activity activity;
     private ArrayList<Contact> data;
+    private ArrayList<Contact> filteredData;
     private static LayoutInflater inflater;
+    private ContactFilter mFilter = new ContactFilter();
     public Resources res;
 
     public ContactsAdapter(Activity a, ArrayList<Contact> d, Resources resLocal) {
         activity = a;
         data = d;
+        filteredData = d;
         res = resLocal;
         inflater = a.getLayoutInflater();
     }
@@ -30,16 +35,16 @@ public class ContactsAdapter extends BaseAdapter implements View.OnClickListener
 
     @Override
     public int getCount() {
-        if (data.size() <= 0) {
+        if (filteredData.size() <= 0) {
             return 1;
         }
 
-        return data.size();
+        return filteredData.size();
     }
 
     @Override
     public Contact getItem(int position) {
-        return data.get(position);
+        return filteredData.get(position);
     }
 
     @Override
@@ -72,9 +77,9 @@ public class ContactsAdapter extends BaseAdapter implements View.OnClickListener
         }
 
 
-        if(null != data && data.size() > 0) {
+        if(null != filteredData && filteredData.size() > 0) {
 
-            tempContact = (Contact) data.get(position);
+            tempContact = (Contact) filteredData.get(position);
 
             // Setting values
             holder.getName().setText(tempContact.getName());
@@ -91,7 +96,10 @@ public class ContactsAdapter extends BaseAdapter implements View.OnClickListener
         Log.v("CustomAdapter", "=====Row button clicked=====");
     }
 
-
+    @Override
+    public Filter getFilter() {
+        return mFilter;
+    }
 
 
     public class ViewHolder{
@@ -123,6 +131,44 @@ public class ContactsAdapter extends BaseAdapter implements View.OnClickListener
         public void setImage(ImageView image) {
             this.image = image;
         }
+    }
+
+    private class ContactFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            String filterString = constraint.toString().toLowerCase();
+
+            FilterResults results = new FilterResults();
+
+            final ArrayList<Contact> list = data;
+
+            int count = list.size();
+            final ArrayList<Contact> nlist = new ArrayList<Contact>(count);
+
+            String filterableString ;
+
+            for (int i = 0; i < count; i++) {
+                Contact filteredItem = list.get(i);
+                filterableString = filteredItem.getName();
+                if (filterableString.toLowerCase().contains(filterString)) {
+                    nlist.add(new Contact(filteredItem.getName(), filteredItem.getNumber(), filteredItem.getImage()));
+                }
+            }
+
+            results.values = nlist;
+            results.count = nlist.size();
+
+            return results;
+        }
+
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredData = (ArrayList<Contact>) results.values;
+            notifyDataSetChanged();
+        }
+
     }
 
 } // END

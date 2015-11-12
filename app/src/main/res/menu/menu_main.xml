@@ -1,6 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/enable_text_search" android:title="@string/enable_text_search"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/disable_text_search" android:title="@string/disable_text_search"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

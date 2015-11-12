@@ -12,11 +12,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -54,6 +59,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, AddActivity.class));
             }
         });
+
+
+        // Getting Contacts Text filter
+        EditText contactsFilter = (EditText)findViewById(R.id.contacts_filter);
+        contactsFilter.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("Text ["+s+"]");
+
+                adapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
 
         // ****** TEST CODE *****
         listView = (ListView) findViewById(R.id.contacts_list);
@@ -110,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
 
         listView.setEmptyView(findViewById(R.id.empty_list));
         listView.setAdapter(adapter);
+
+        listView.setFocusableInTouchMode(true);
+        listView.requestFocus();
         // ***** END TEST CODE *****
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -129,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        registerForContextMenu(listView);
+
     }
 
     @Override
@@ -145,11 +180,29 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        EditText searchFilter = (EditText) findViewById(R.id.contacts_filter);
+
+        switch (id) {
+            case R.id.enable_text_search:
+                searchFilter.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.disable_text_search:
+                searchFilter.setVisibility(View.GONE);
+                break;
+
+            default:
+                searchFilter.setVisibility(View.GONE);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.contextual_menu, menu);
     }
 }

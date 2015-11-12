@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Speed Touch</string>
+    <string name="action_settings">Confuguración</string>
+    <string name="btn_pick_image">Elige una Imagen</string>
+    <string name="chooser_intent_title">Pick an Image</string>
+    <string name="hint_name">Nombre Contacto</string>
+    <string name="hint_phone_number">Teléfono Contacto</string>
+    <string name="btn_save">Guardar</string>
+    <string name="save_contact_validation">Introduzca Nombre y Número de Teléfono</string>
+    <string name="save_contact_successfully">Nuevo contacto guardado :)</string>
+    <string name="empty_list_text">No tienes contactos :(</string>
+    <string name="enable_text_search">Habilitar Búsqueda</string>
+    <string name="disable_text_search">Deshabilitar Búsqueda</string>
+    <string name="edit_contact">Editar Contacto</string>
+
+
+</resources>

@@ -38,6 +38,14 @@ public class AddActivity extends AppCompatActivity {
         // Gettting ImageView
         contactImage = (ImageView) findViewById(R.id.contact_image);
 
+        contactImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contactImage.setImageDrawable(null);
+                Crop.pickImage(AddActivity.this);
+            }
+        });
+
         // Getting Image Selector Button
         Button selectImageBtn = (Button) findViewById(R.id.btn_select_image);
 
@@ -53,7 +61,7 @@ public class AddActivity extends AppCompatActivity {
         final EditText nameEditText = (EditText) findViewById(R.id.contact_name);
         final EditText numberEditText = (EditText) findViewById(R.id.contact_phone);
 
-        //Geting Save Button
+        //Getting Save Button
         Button saveBtn = (Button) findViewById(R.id.btn_save);
         saveBtn.setTypeface(font);
 
@@ -79,10 +87,15 @@ public class AddActivity extends AppCompatActivity {
                     DatabaseHandler db = new DatabaseHandler(AddActivity.this);
                     db.addContact(contact);
 
-                    Snackbar.make(v, R.string.save_contact_successfully, Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-                    startActivity(new Intent(AddActivity.this, MainActivity.class));
+                   Snackbar.make(v, R.string.save_contact_successfully, Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null)
+                            .setCallback(new Snackbar.Callback() {
+                                @Override
+                                public void onDismissed(Snackbar snackbar, int event) {
+                                    super.onDismissed(snackbar, event);
+                                    startActivity(new Intent(AddActivity.this, MainActivity.class));
+                                }
+                            }).show();
                 }
             }
         });
