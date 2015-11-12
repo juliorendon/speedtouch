@@ -21,17 +21,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private ContactsAdapter adapter;
     private  ListView listView;
-    static final int ADD_NEW_CONTACT_RC = 1;
+    private static final int ADD_NEW_CONTACT_RC = 1;
+    private static final String CONTACT_DATA = "CONTACT";
+    private DatabaseHandler db;
+    ArrayList<Contact> contacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,47 +94,10 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.contacts_list);
 
         Log.i("DATABASE", "Starting database operations...");
-        DatabaseHandler db = new DatabaseHandler(this);
-
-/*
-        db.deleteAllContacts();
-
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.recio);
-        byte[] imageByteArray = ImageHelper.bitmapToByteArray(imageBitmap);
-
-
-        if (db.getContactsCount() == 0) {
-
-            ArrayList<Contact> data = new ArrayList<Contact>();
-            Contact c = new Contact("Erasmus", "911", imageByteArray);
-            data.add(c);
-            c = new Contact("Batman", "911 11 111", imageByteArray);
-            data.add(c);
-            c = new Contact("Real Madrid", "767678787", imageByteArray);
-            data.add(c);
-            c = new Contact("Mama", "43535535", imageByteArray);
-            data.add(c);
-            c = new Contact("Julio Cesar Rendon Ramirez", "4524524", imageByteArray);
-            data.add(c);
-            c = new Contact("Darlis Bracho Tudares", "4524524", imageByteArray);
-            data.add(c);
-            c = new Contact("Osito", "4524524", imageByteArray);
-            data.add(c);
-            c = new Contact("Bob Esponja", "4524524", imageByteArray);
-            data.add(c);
-
-            c = new Contact("Nirvana y sus Amigos", "4524524", imageByteArray);
-            data.add(c);
-
-            for (Contact item: data) {
-                Log.i("DATABASE", "Inserting item...");
-                db.addContact(item);
-            }
-        }
-        */
+        db = new DatabaseHandler(this);
 
         Log.i("DATABASE", "Getting all contacts...");
-        ArrayList<Contact> contacts = db.getAllContacts();
+        contacts = db.getAllContacts();
 
         // Setting up ContactsAdapter
         Resources res = getResources();
@@ -137,13 +105,11 @@ public class MainActivity extends AppCompatActivity {
             adapter = new ContactsAdapter(this, contacts, res);
         }
 
-
         listView.setEmptyView(findViewById(R.id.empty_list));
         listView.setAdapter(adapter);
 
         listView.setFocusableInTouchMode(true);
         listView.requestFocus();
-        // ***** END TEST CODE *****
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -205,4 +171,22 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.contextual_menu, menu);
     }
-}
+
+    @Override
+    public boolean onContextItemSelected(final MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.edit_contact:
+                Contact contactItem = (Contact) listView.getAdapter().getItem(((AdapterContextMenuInfo) item.getMenuInfo()).position);
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.putExtra(CONTACT_DATA, (Serializable) contactItem);
+                startActivity(intent);
+                return true;
+
+                default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+
+} // END

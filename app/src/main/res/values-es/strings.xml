@@ -8,10 +8,16 @@
     <string name="btn_save">Guardar</string>
     <string name="save_contact_validation">Introduzca Nombre y Número de Teléfono</string>
     <string name="save_contact_successfully">Nuevo contacto guardado :)</string>
+    <string name="update_contact_successfully">Contacto guardado :)</string>
+    <string name="delete_contact_successfully">Contacto eliminado</string>
     <string name="empty_list_text">No tienes contactos :(</string>
     <string name="enable_text_search">Habilitar Búsqueda</string>
     <string name="disable_text_search">Deshabilitar Búsqueda</string>
     <string name="edit_contact">Editar Contacto</string>
+    <string name="delete_contact">Eliminar Contacto</string>
+    <string name="delete_contact_confirmation">"¿Estas seguro de que quieres eliminar este contacto?"</string>
+    <string name="dialog_yes">Si</string>
+    <string name="dialog_no">No</string>
 
 
 </resources>

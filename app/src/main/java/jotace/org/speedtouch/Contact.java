@@ -1,6 +1,8 @@
 package jotace.org.speedtouch;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
 
     private int id;
 

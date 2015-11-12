@@ -76,6 +76,7 @@ public class AddActivity extends AppCompatActivity {
                     Snackbar.make(v, R.string.save_contact_validation, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 } else {
+                    v.setClickable(false);
                     Contact contact = new Contact();
                     contact.setName(contactName);
                     contact.setNumber(contactNumber);
