@@ -38,6 +38,7 @@
         android:id="@+id/contact_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLength="30"
         android:hint="@string/hint_name"
         android:layout_marginTop="10dp"
         android:inputType="textCapWords"
@@ -47,6 +48,7 @@
     <EditText
         android:id="@+id/contact_phone"
         android:layout_width="match_parent"
+        android:maxLength="20"
         android:layout_height="wrap_content"
         android:hint="@string/hint_phone_number"
         android:singleLine="true"
@@ -72,6 +74,7 @@
         android:text="@string/btn_delete"
         android:textSize="20dp"
         android:layout_marginTop="15dp"
+        android:visibility="gone"
         android:background="@color/darkred"
         android:textColor="@android:color/white"
         android:layout_gravity="center"/>

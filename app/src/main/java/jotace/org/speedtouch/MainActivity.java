@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -88,15 +87,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-        // ****** TEST CODE *****
         listView = (ListView) findViewById(R.id.contacts_list);
 
-        Log.i("DATABASE", "Starting database operations...");
+        //Log.i("DATABASE", "Starting database operations...");
         db = new DatabaseHandler(this);
 
-        Log.i("DATABASE", "Getting all contacts...");
+        //Log.i("DATABASE", "Getting all contacts...");
         contacts = db.getAllContacts();
 
         // Setting up ContactsAdapter
@@ -187,6 +183,5 @@ public class MainActivity extends AppCompatActivity {
                 return super.onContextItemSelected(item);
         }
     }
-
 
 } // END

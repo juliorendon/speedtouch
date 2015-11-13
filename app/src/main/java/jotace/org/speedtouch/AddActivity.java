@@ -81,6 +81,7 @@ public class AddActivity extends AppCompatActivity {
                     contact.setName(contactName);
                     contact.setNumber(contactNumber);
 
+                    // Setting image
                     contactImage.buildDrawingCache();
                     Bitmap imageBitmap = contactImage.getDrawingCache();
                     contact.setImage(ImageHelper.bitmapToByteArray(imageBitmap));

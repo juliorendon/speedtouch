@@ -115,11 +115,13 @@ public class EditActivity extends AppCompatActivity {
         //Getting Delete Button
         Button deleteBtn = (Button) findViewById(R.id.btn_delete);
         deleteBtn.setTypeface(font);
+        deleteBtn.setVisibility(View.VISIBLE);
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
 
+                // Confirmation Dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
                 // Add the buttons
                 builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
