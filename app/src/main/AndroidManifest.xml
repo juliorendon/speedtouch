@@ -3,6 +3,7 @@
     package="jotace.org.speedtouch" >
 
     <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission."></uses-permission>
 
     <application

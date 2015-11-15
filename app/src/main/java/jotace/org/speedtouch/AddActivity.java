@@ -95,7 +95,10 @@ public class AddActivity extends AppCompatActivity {
                                 @Override
                                 public void onDismissed(Snackbar snackbar, int event) {
                                     super.onDismissed(snackbar, event);
-                                    startActivity(new Intent(AddActivity.this, MainActivity.class));
+
+                                    Intent intent = new Intent(AddActivity.this, MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
                                 }
                             }).show();
                 }

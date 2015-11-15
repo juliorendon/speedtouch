@@ -73,8 +73,11 @@ public class EditActivity extends AppCompatActivity {
         final EditText numberEditText = (EditText) findViewById(R.id.contact_phone);
         numberEditText.setText((CharSequence) contact.getNumber());
 
+        // Getting Delete Button
+        final Button deleteBtn = (Button) findViewById(R.id.btn_delete);
+
         //Getting Save Button
-        Button saveBtn = (Button) findViewById(R.id.btn_save);
+        final Button saveBtn = (Button) findViewById(R.id.btn_save);
         saveBtn.setTypeface(font);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +93,7 @@ public class EditActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                 } else {
                     v.setClickable(false);
+                    deleteBtn.setClickable(false);
                     contact.setName(contactName);
                     contact.setNumber(contactNumber);
 
@@ -112,8 +116,7 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
-        //Getting Delete Button
-        Button deleteBtn = (Button) findViewById(R.id.btn_delete);
+        // Setting Delete Button
         deleteBtn.setTypeface(font);
         deleteBtn.setVisibility(View.VISIBLE);
 
@@ -126,6 +129,8 @@ public class EditActivity extends AppCompatActivity {
                 // Add the buttons
                 builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        saveBtn.setClickable(false);
+                        deleteBtn.setClickable(false);
                         dialog.dismiss();
                         db.deleteContact(contact);
 
@@ -135,7 +140,10 @@ public class EditActivity extends AppCompatActivity {
                                     @Override
                                     public void onDismissed(Snackbar snackbar, int event) {
                                         super.onDismissed(snackbar, event);
-                                        startActivity(new Intent(EditActivity.this, MainActivity.class));
+
+                                        Intent intent = new Intent(EditActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
                                     }
                                 }).show();
                     }

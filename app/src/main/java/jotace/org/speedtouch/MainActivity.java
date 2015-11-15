@@ -1,6 +1,7 @@
 package jotace.org.speedtouch;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -10,11 +11,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -182,6 +185,33 @@ public class MainActivity extends AppCompatActivity {
                 default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            // Confirmation Dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            // Add the buttons
+            builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                    finish();
+                }
+            }).setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            })
+                    .setTitle(R.string.exit_speedtouch)
+                    .setMessage(R.string.exit_confirmation)
+                    .create().show();
+
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 } // END

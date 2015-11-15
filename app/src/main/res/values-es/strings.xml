@@ -17,6 +17,8 @@
     <string name="edit_contact">Editar Contacto</string>
     <string name="delete_contact">Eliminar Contacto</string>
     <string name="delete_contact_confirmation">"¿Estas seguro de que quieres eliminar este contacto?"</string>
+    <string name="exit_confirmation">"¿Estas seguro de que quieres salir de Speed Touch?"</string>
+    <string name="exit_speedtouch">"Salir de Speed Touch?"</string>
     <string name="dialog_yes">Si</string>
     <string name="dialog_no">No</string>
 
