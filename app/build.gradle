@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "jotace.org.speedtouch"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 5
-        versionName "5.1"
+        versionCode 6
+        versionName "6"
     }
     buildTypes {
         release {

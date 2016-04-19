@@ -6,6 +6,7 @@
     <string name="hint_name">Contact Name</string>
     <string name="hint_phone_number">Contact Phone Number</string>
     <string name="btn_save">Save</string>
+    <string name="btn_pick_from_contact">Pick from your Contacts</string>
     <string name="btn_delete">Delete</string>
     <string name="save_contact_validation">Please enter a Name and a Phone Number</string>
     <string name="save_contact_successfully">New contact saved :)</string>
