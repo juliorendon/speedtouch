@@ -8,8 +8,8 @@ android {
         applicationId "jotace.org.speedtouch"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 6
-        versionName "6"
+        versionCode 7
+        versionName "7"
     }
     buildTypes {
         release {
@@ -25,5 +25,4 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
-
 }

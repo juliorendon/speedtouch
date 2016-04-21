@@ -137,6 +137,7 @@ public class AddActivity extends AppCompatActivity {
             handleCrop(resultCode, result);
         } else if (requestCode == REQUEST_CODE_PICK_CONTACTS && resultCode == RESULT_OK) {
             uriContact = result.getData();
+            retrieveContactId();
             retrieveContactNumber();
             retrieveContactName();
             retrieveContactPhoto();
@@ -179,9 +180,7 @@ public class AddActivity extends AppCompatActivity {
         cursor.close();
     }
 
-    private void retrieveContactNumber() {
-
-        String contactNumber = null;
+    private void retrieveContactId() {
 
         // getting contacts ID
         Cursor cursorID = getContentResolver().query(uriContact, new String[]{ContactsContract.Contacts._ID}, null, null, null);
@@ -192,6 +191,11 @@ public class AddActivity extends AppCompatActivity {
         }
 
         cursorID.close();
+    }
+
+    private void retrieveContactNumber() {
+
+        String contactNumber = null;
 
         // Using the contact ID now we will get contact phone number
         Cursor cursorPhone = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -224,11 +228,9 @@ public class AddActivity extends AppCompatActivity {
 
             if (inputStream != null) {
                 photo = BitmapFactory.decodeStream(inputStream);
-                 contactImage.setImageBitmap(photo);
+                contactImage.setImageBitmap(photo);
+                inputStream.close();
             }
-
-            assert inputStream != null;
-            inputStream.close();
 
         } catch (IOException e) {
             e.printStackTrace();
