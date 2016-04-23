@@ -62,7 +62,13 @@ public class AddActivity extends AppCompatActivity {
         pickFromContactsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                grantReadContactsPermission();
+
+                int permissionCheck = ContextCompat.checkSelfPermission(AddActivity.this, Manifest.permission.READ_CONTACTS);
+                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                    pickContactFromContacts();
+                } else {
+                    grantReadContactsPermission();
+                }
             }
         });
 
