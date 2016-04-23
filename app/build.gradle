@@ -8,8 +8,8 @@ android {
         applicationId "jotace.org.speedtouch"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 9
-        versionName "9"
+        versionCode 10
+        versionName "10"
     }
     buildTypes {
         release {

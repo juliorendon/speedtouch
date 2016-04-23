@@ -134,7 +134,7 @@ public class AddActivity extends AppCompatActivity {
                                     super.onDismissed(snackbar, event);
 
                                     Intent intent = new Intent(AddActivity.this, MainActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                 }
                             }).show();
