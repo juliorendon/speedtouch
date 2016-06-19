@@ -7,9 +7,11 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private  ListView listView;
     private static final int ADD_NEW_CONTACT_RC = 1;
     private static final String CONTACT_DATA = "CONTACT";
+    private static final int PERMISSIONS_REQUEST_MAKE_CALLS = 7;
     private DatabaseHandler db;
     ArrayList<Contact> contacts;
 
@@ -63,7 +66,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddActivity.class));
+                int permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE);
+                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(new Intent(MainActivity.this, AddActivity.class));
+                } else {
+                    grantMakeCallsPermission();
+                }
             }
         });
 
@@ -212,6 +220,60 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void grantMakeCallsPermission() {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.CALL_PHONE)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new ExplainPermissionTask().execute();
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        PERMISSIONS_REQUEST_MAKE_CALLS);
+
+            }
+        }
+    }
+
+    private class ExplainPermissionTask extends AsyncTask<Void, Void, Void> {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setTitle(R.string.call_permission_dialog_title);
+            dialog.setMessage(R.string.call_permission_dialog_text);
+            dialog.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.CALL_PHONE},
+                            PERMISSIONS_REQUEST_MAKE_CALLS);
+                }
+            }).show();
+
+        }
+
+
+
+
     }
 
 } // END

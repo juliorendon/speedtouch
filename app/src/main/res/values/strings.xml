@@ -26,4 +26,6 @@
     <string name="dialog_ok">OK</string>
     <string name="permission_dialog_title">Read Contacts Permission</string>
     <string name="permission_dialog_text">In order to enable this feature we need you to Grant Access to Read your Contacts.</string>
+    <string name="call_permission_dialog_title">Make Calls Permission</string>
+    <string name="call_permission_dialog_text">Do you want to allow Speed Touch making calls?</string>
 </resources>

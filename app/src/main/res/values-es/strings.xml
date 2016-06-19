@@ -26,4 +26,6 @@
     <string name="dialog_ok">OK</string>
     <string name="permission_dialog_title">Permiso Leer Contactos</string>
     <string name="permission_dialog_text">Para habilitar esta funcionalidad necesitas aceptar el Permiso para Leer tus Contactos.</string>
+    <string name="call_permission_dialog_title">Permiso Hacer Llamadas</string>
+    <string name="call_permission_dialog_text">¿Quieres permitir a Speed Touch hacer llamdas?</string>
 </resources>
