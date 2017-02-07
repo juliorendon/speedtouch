@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String CONTACT_DATA = "CONTACT";
     private static final int PERMISSIONS_REQUEST_MAKE_CALLS = 7;
     private DatabaseHandler db;
+    private static final String PRIVACY_URL = "http://gordiancode.com.es/language/en/speed-touch-privacy/";
     ArrayList<Contact> contacts;
 
     @Override
@@ -164,6 +165,10 @@ public class MainActivity extends AppCompatActivity {
                 searchFilter.setVisibility(View.GONE);
                 break;
 
+            case R.id.privacy_text:
+                goToPrivacy();
+                break;
+
             default:
                 searchFilter.setVisibility(View.GONE);
                 break;
@@ -245,6 +250,14 @@ public class MainActivity extends AppCompatActivity {
                         PERMISSIONS_REQUEST_MAKE_CALLS);
 
             }
+        }
+    }
+
+    private void goToPrivacy() {
+        Uri privacyURL = Uri.parse(PRIVACY_URL);
+        Intent intent = new Intent(Intent.ACTION_VIEW, privacyURL);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
         }
     }
 

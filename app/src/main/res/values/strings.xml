@@ -15,6 +15,7 @@
     <string name="empty_list_text">You have no contacts :(</string>
     <string name="enable_text_search">Enable Search</string>
     <string name="disable_text_search">Disable Search</string>
+    <string name="privacy_text">See Privacy</string>
     <string name="edit_contact">Edit Contact</string>
     <string name="delete_contact">Delete Contact</string>
     <string name="delete_contact_confirmation">"Are you sure you want to delete this contact?"</string>
