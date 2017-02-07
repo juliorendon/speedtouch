@@ -7,6 +7,6 @@
     <item android:id="@+id/disable_text_search" android:title="@string/disable_text_search"
         android:orderInCategory="100" app:showAsAction="never" />
 
-    <item android:id="@+id/privacy_text" android:title="@string/disable_text_search"
+    <item android:id="@+id/privacy_text" android:title="@string/privacy_text"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
